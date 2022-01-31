@@ -3,7 +3,9 @@ const Product = require("./db/models/Product");
 
 exports.fetchProducts = async (req, res) => {
   try {
-    const productArray = await Product.find();
+    const productArray = await Product.find({}).select(
+      "name description price color"
+    );
     res.json(productArray);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -16,26 +18,26 @@ exports.getDetail = (req, res) => {
     const productOne = products.find((e) => e.id === +productId);
     res.status(200).jsom(productOne);
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 
-exports.createProducts = (req, res) => {
-  console.log(req.body);
-  const id = products.length + 1;
-  const newProduct = { ...req.body, id: id };
-  products.push(newProduct);
-  res.status(201);
-  res.json(newProduct);
+exports.createProducts = async (req, res) => {
+  try {
+    const newProduct = await Product.create(req.body);
+    res.status(201).json(newProduct);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
-exports.deleteProducts = (req, res) => {
+
+exports.deleteProducts = async (req, res) => {
   const { productId } = req.params;
-  const foundProduct = products.find((product) => product.id === +productId);
-  if (foundProduct) {
-    const newArray = products.filter((product) => product.id !== +productId);
-    products = newArray;
-    res.status(204).end();
-  } else {
-    res.status(404).end();
+  try {
+    const foundProduct = await Product.findByIdAndDelete({ _id: productId });
+    if (foundProduct) res.status(204).end();
+    else res.status(404).end();
+  } catch (error) {
+    res.status(500).jsom({ message: error.message });
   }
 };
