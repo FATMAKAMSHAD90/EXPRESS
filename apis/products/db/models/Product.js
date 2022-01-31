@@ -1,6 +1,6 @@
-const mangoose = require("mangoose");
+const mongoose = require("mongoose");
 
-const ProductSchema = mangoose.Schema({
+const ProductSchema = mongoose.Schema({
   name: String,
   image: String,
   description: String,
@@ -8,4 +8,4 @@ const ProductSchema = mangoose.Schema({
   quantity: Number,
   price: Number,
 });
-module.exports = mangoose.model("Product", ProductSchema);
+module.exports = mongoose.model("Product", ProductSchema);

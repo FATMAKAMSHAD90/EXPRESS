@@ -3,7 +3,7 @@ const productsRoutes = require("./apis/products/routes");
 const connectDB = require("./apis/products/db/database");
 const app = express();
 app.use(express.json());
-app.use("/api/products", productsRoutes);
+app.use("api/products", productsRoutes);
 
 connectDB();
 app.listen(8000, () => {
