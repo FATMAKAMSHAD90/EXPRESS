@@ -41,3 +41,17 @@ exports.deleteProducts = async (req, res) => {
     res.status(500).jsom({ message: error.message });
   }
 };
+exports.updateProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findByIdAndUpdate(
+      { _id: productId },
+      req.body,
+      { new: true }
+    );
+    if (product) res.json(product);
+    else res.status(404).json({ message: "not found" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
