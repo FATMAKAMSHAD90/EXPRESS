@@ -1,5 +1,23 @@
-exports.fetchProducts = (req, res) => {
-  res.json(products);
+let products = require("./products");
+const Product = require("./db/models/Product");
+
+exports.fetchProducts = async (req, res) => {
+  try {
+    const productArray = await Product.find();
+    res.json(productArray);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getDetail = (req, res) => {
+  try {
+    const { productId } = req.params;
+    const productOne = products.find((e) => e.id === +productId);
+    res.status(200).jsom(productOne);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
 };
 
 exports.createProducts = (req, res) => {

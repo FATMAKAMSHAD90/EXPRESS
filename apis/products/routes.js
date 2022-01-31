@@ -4,11 +4,15 @@ const {
   fetchProducts,
   createProducts,
   deleteProducts,
-} = require("./controllers");
+  getDetail,
+} = require("./controller");
 
 router.get("/", fetchProducts);
+
+router.get("/:productId", getDetail);
 
 router.post("/", createProducts);
 
 router.delete("/:productId", deleteProducts);
+
 module.exports = router;
