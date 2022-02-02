@@ -8,6 +8,16 @@ const {
   updateProduct,
 } = require("./controller");
 
+router.param("productId", async (req, res, next, productId) => {
+  const product = await fetchProducts(productId, next);
+  if (product) {
+    req.product = product;
+    next();
+  } else {
+    next({ status: 404, message: "OOPS, product not found" });
+  }
+});
+
 router.get("/", fetchProducts);
 
 router.get("/:productId", getDetail);
