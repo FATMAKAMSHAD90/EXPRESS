@@ -7,5 +7,8 @@ const ProductSchema = mongoose.Schema({
   color: String,
   quantity: { type: Number, min: 0 },
   price: { type: Number, default: 1 },
+
+  shop: { type: mongoose.Schema.Types.ObjectId, ref: "Shop" },
 });
+
 module.exports = mongoose.model("Product", ProductSchema);

@@ -1,5 +1,6 @@
 const express = require("express");
 const productsRoutes = require("./apis/products/routes");
+const shopRoutes = require("./apis/Shops/routes");
 const connectDB = require("./apis/products/db/database");
 const {
   logger,
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use("api/products", productsRoutes);
+app.use("api/shops", shopRoutes);
 app.use(errorHandelers);
 
 app.use(notFoundPage);

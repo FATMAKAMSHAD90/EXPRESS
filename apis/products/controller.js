@@ -18,16 +18,6 @@ exports.getDetail = (req, res, next) => {
     next(error);
   }
 };
-
-exports.createProducts = async (req, res, next) => {
-  try {
-    const newProduct = await Product.create(req.body);
-    res.status(201).json(newProduct);
-  } catch (error) {
-    next(error);
-  }
-};
-
 exports.deleteProducts = async (req, res, next) => {
   try {
     await Product.findByIdAndDelete({

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const {
   fetchProducts,
-  createProducts,
   deleteProducts,
   getDetail,
   updateProduct,
@@ -21,8 +20,6 @@ router.param("productId", async (req, res, next, productId) => {
 router.get("/", fetchProducts);
 
 router.get("/:productId", getDetail);
-
-router.post("/", createProducts);
 
 router.delete("/:productId", deleteProducts);
 
